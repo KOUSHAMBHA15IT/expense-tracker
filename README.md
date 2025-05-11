@@ -18,9 +18,6 @@ A web-based **Expense Tracker** application built with **Spring Boot**, **Spring
 
 ## 🚀 **Features**
 
-- **User Authentication** 🔐:
-  - Secure registration and login functionality.
-
 - **Expense Management** 💸:
   - Add, update, and delete expenses.
 
