@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Income</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <nav class="navbar">
+    <h1>Income</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="expenses.html">Expenses</a></li>
+      <li><a href="income.html">Income</a></li>
+    </ul>
+  </nav>
+
+  <div class="container glass">
+    <form id="incomeForm">
+      <input type="text" placeholder="Description" id="desc" required>
+      <input type="number" placeholder="Amount" id="amount" required>
+      <input type="date" id="date" required>
+      <button type="submit">Add Income</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr><th>ID</th><th>Description</th><th>Amount</th><th>Date</th><th>Actions</th></tr>
+      </thead>
+      <tbody id="incomeTable"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const form = document.getElementById('incomeForm');
+    const table = document.getElementById('incomeTable');
+    let API = "http://localhost:8080/api/income";
+
+    async function fetchIncome() {
+      const res = await fetch(API + "/all");
+      const data = await res.json();
+      table.innerHTML = "";
+      data.forEach(i => {
+        table.innerHTML += `
+          <tr>
+            <td>${i.id}</td>
+            <td>${i.description}</td>
+            <td>${i.amount}</td>
+            <td>${i.date}</td>
+            <td>
+              <button onclick="deleteIncome(${i.id})">Delete</button>
+            </td>
+          </tr>`;
+      });
+    }
+
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      const body = {
+        description: document.getElementById('desc').value,
+        amount: document.getElementById('amount').value,
+        date: document.getElementById('date').value
+      };
+      await fetch(API, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(body)
+      });
+      form.reset();
+      fetchIncome();
+    });
+
+    async function deleteIncome(id) {
+      await fetch(API + "/" + id, { method: "DELETE" });
+      fetchIncome();
+    }
+
+    fetchIncome();
+  </script>
+</body>
+</html>

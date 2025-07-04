@@ -1,0 +1,93 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #363636, #869468e0), url('https://www.transparenttextures.com/patterns/black-linen.png');
+  background-size: cover;
+  color: #fff;
+}
+
+.navbar {
+  background-color: #000000aa;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  align-items: center;
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.navbar ul li a {
+  color: #00ffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.container {
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+}
+
+form input, form button {
+  padding: 10px;
+  margin: 8px;
+  border: none;
+  border-radius: 12px;
+}
+
+form button {
+  background-color: #ff9900;
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+table th, table td {
+  padding: 12px;
+  border: 1px solid #00ffff33;
+  text-align: left;
+}
+
+.stat-box {
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 1rem;
+  font-size: 1.5rem;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+}
+
+.cyan {
+  background-color: #00ffff55;
+}
+
+.orange {
+  background-color: #ff990055;
+}
+
+.black {
+  background-color: #00000055;
+}

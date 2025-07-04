@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Tracker - Dashboard</title>
+  <link rel="stylesheet" href="styles.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <h1>Dashboard</h1>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="expenses.html">Expenses</a></li>
+      <li><a href="income.html">Income</a></li>
+    </ul>
+  </nav>
+
+  <div class="container glass">
+    <div class="stats">
+      <div id="incomeBox" class="stat-box cyan">Income: ₹<span id="totalIncome">0</span></div>
+      <div id="expenseBox" class="stat-box orange">Expense: ₹<span id="totalExpense">0</span></div>
+      <div id="balanceBox" class="stat-box black">Balance: ₹<span id="balance">0</span></div>
+    </div>
+
+    <canvas id="expenseChart"></canvas>
+  </div>
+
+  <!-- <script>
+    async function loadStats() {
+      const res = await fetch('http://localhost:8080/api/stats');
+      const data = await res.json();
+      document.getElementById('totalIncome').textContent = data.totalIncome;
+      document.getElementById('totalExpense').textContent = data.totalExpense;
+      document.getElementById('balance').textContent = data.balance;
+    }
+
+    async function loadChart() {
+
+      const res = await fetch('http://localhost:8080/api/stats/chart');
+      const data = await res.json();
+      console.log("Chart Data:", data);
+
+      new Chart(document.getElementById("expenseChart"), {
+        type: "bar",
+        data: {
+          labels: data.labels,
+          datasets: [{
+            label: "Expenses",
+            backgroundColor: "#00ffffaa",
+            data: data.values
+          }]
+        }
+      });
+    }
+
+    loadStats();
+    loadChart();
+  </script> -->
+
+  <script>
+  async function loadStats() {
+    const res = await fetch('http://localhost:8080/api/stats');
+    const data = await res.json();
+
+    document.getElementById('totalIncome').textContent = data.totalIncome;
+    document.getElementById('totalExpense').textContent = data.totalExpense;
+    document.getElementById('balance').textContent = data.balance;
+  }
+
+  async function loadChart() {
+    try {
+      const res = await fetch('http://localhost:8080/api/stats/chart');
+      const data = await res.json();
+      console.log("Chart Data:", data);
+
+      new Chart(document.getElementById("expenseChart"), {
+        type: "bar",
+        data: {
+          labels: data.labels,
+          datasets: [
+            {
+              label: "Expenses",
+              backgroundColor: "#00ffffaa",
+              data: data.expenseValues
+            },
+            {
+              label: "Income",
+              backgroundColor: "#ff9900aa",
+              data: data.incomeValues
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              labels: {
+                color: "#ffffff"
+              }
+            }
+          },
+          scales: {
+            x: {
+              ticks: {
+                color: "#ffffff"
+              }
+            },
+            y: {
+              ticks: {
+                color: "#ffffff"
+              }
+            }
+          }
+        }
+      });
+
+    } catch (error) {
+      console.error("Chart load failed:", error);
+    }
+  }
+
+  window.onload = function () {
+    loadStats();
+    loadChart();
+  };
+</script>
+
+</body>
+</html>
